@@ -44,7 +44,7 @@ We need `Map` and `Provider`.
 When `MyViewModel` instance is requested to `ViewModelProvider` instance the provider should return us the one that matches current scope.
 For example from below, (in fragment)
 ```kotlin
-class SomeFragment{
+class ExampleFragment: Fragment(){
     val viewModel1 = ViewModelProvider(requireActivity(), mFactory).get(MyViewModel::class.java)
     val viewModel2 = ViewModelProvider(requireActivity(), mFactory).get(MyViewModel::class.java)    //scope is activity
     val viewModel3 = ViewModelProvider(this, mFactory).get(MyViewModel::class.java)                 //scope is fragment
