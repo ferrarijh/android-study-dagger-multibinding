@@ -13,6 +13,6 @@ class ViewModelFactory @Inject constructor(
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return providerMap[modelClass]!!.get() as T
+        return providerMap[modelClass]?.get() as T ?: throw RuntimeException("unsupported ViewModel class")
     }
 }
