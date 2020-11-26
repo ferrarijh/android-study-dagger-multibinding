@@ -3,8 +3,10 @@
 ## Demo
 
 <div>
-    <img src=""/>
+    <img src="https://github.com/ferrarijh/android-study-dagger-multibinding/blob/master/demo/demo.gif" />
 </div>
+
+(demo.gif itself does not matter much for dagger multi-binding practice) 
 
 ## Why do we need multi-binding?
 
