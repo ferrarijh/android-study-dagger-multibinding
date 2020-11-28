@@ -24,7 +24,8 @@ class MyViewModel(val service: Service): ViewModel(){
 }
 ```
 
-Here Dagger doesn't know how to initialize `MyViewModel` instance, since we let `ViewModelProvider` to work to acquire the reference to the ViewModel instance as below.
+Here Dagger doesn't know how to initialize `MyViewModel` instance, since we let `ViewModelProvider` 
+to work to acquire the reference to the ViewModel instance as below.
 ```kotlin
 val mViewModel by lazy{ ViewModelProvider(requireActivity()).get(MyViewModel::class.java) }
 ```
@@ -41,8 +42,8 @@ Let's see what that means.
 ### How to do it?
 We need `Map` and `Provider`.
 
-When `MyViewModel` instance is requested to `ViewModelProvider` instance the provider should return us the one that matches current scope.
-For example from below, (in fragment)
+When `MyViewModel` instance is requested to `ViewModelProvider` instance the provider should return
+us the one that matches current scope. For example as below, (in fragment)
 ```kotlin
 class ExampleFragment: Fragment(){
     val viewModel1 = ViewModelProvider(requireActivity(), mFactory).get(MyViewModel::class.java)
@@ -53,8 +54,12 @@ class ExampleFragment: Fragment(){
 ```
 `viewModel1` and `viewModel2` should be same instance and `viewModel3` should be a different one.
 
-To do this with we let Dagger create a `Map` that maps 'class type'(key) to 'instance'(value) that matches the class type, with the right scope.
-For Dagger to choose the one with right scope upon request, we use Dagger's `Provider` class to wrap the ViewModel instance.
+To do this with we let Dagger create a `Map` that maps 'class type'(key) to 'instance'(value) that 
+matches the class type, with the right scope.
+For Dagger to choose the one with right scope upon request, we use `Provider` to wrap the 
+ViewModel instance. `Provider` is java interface which provides a fully-constructed and injected 
+instance of <T>.
+(see documents)
 
 1) Create annotation class with `@MapKey` annotation
 
@@ -91,13 +96,14 @@ abstract class ViewModelModule {
     }
 }
 ```
-Any return value provided by method annotated with `@Provides` and `@IntoMap`
-will be put into the map which accepts anything that extends `ViewModel`.
+Any return value provided by method annotated with `@Provides` and `@IntoMap` will be put into the 
+map which accepts anything that extends `ViewModel`.
 Here the inserted key-value pair's key type is `MainViewModel::class`.
 
 3) Define custom factory class to inject to `ViewModelProvider`
 
-Factory class is responsible for providing the right type of View Model class so we let dagger inject the map into it.
+Factory class is responsible for providing the right type of View Model class so we let dagger 
+inject the map into it.
 
 ViewModelFactory.kt:
 ```kotlin

@@ -18,11 +18,13 @@ import kotlin.reflect.KClass
 abstract class ViewModelModule {
 
     companion object {
+        @JvmStatic
         @Provides
         fun provideViewModelFactory(providerMap: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>): ViewModelFactory {
             return ViewModelFactory(providerMap)
         }
 
+        @JvmStatic
         @Provides
         @IntoMap
         @ViewModelKey(MainViewModel::class)
